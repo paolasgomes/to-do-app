@@ -37,7 +37,7 @@ export const InsertInput = styled.TextInput`
   height: 54px;
 `;
 
-export const TaskList = styled.View`
+export const TasksPanel = styled.View`
   padding: 33px 24px 0 24px;
 `;
 export const StatusAtual = styled.View`
@@ -89,3 +89,35 @@ export const ConcludedTasks = styled.Text`
   font-family: ${(props) => props.theme.FONT_FAMILY.BOLD};
   font-size: ${(props) => props.theme.FONT_SIZE[14]};
 `;
+
+export const TasksList = styled.View``;
+
+export const TaskCard = styled.View`
+  background-color: ${(props) => props.theme.COLORS.GRAY_400};
+  border-radius: 8px;
+  padding: 12px 25px 12px 12px;
+
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const Checkbox = styled.TouchableOpacity`
+  margin-right: 11px;
+`;
+
+export const TaskDescriptionUnChecked = styled.Text`
+  color: ${(props) => props.theme.COLORS.GRAY_100};
+  font-family: ${(props) => props.theme.FONT_FAMILY.REGULAR};
+  font-size: ${(props) => props.theme.FONT_SIZE[14]};
+  width: 285px;
+`;
+
+export const TaskDescriptionChecked = styled.Text`
+  color: ${(props) => props.theme.COLORS.GRAY_300};
+  font-family: ${(props) => props.theme.FONT_FAMILY.REGULAR};
+  font-size: ${(props) => props.theme.FONT_SIZE[14]};
+  text-decoration: line-through;
+  width: 285px;
+`;
+
+export const DeleteTask = styled.TouchableOpacity``;
