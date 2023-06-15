@@ -96,6 +96,8 @@ export const TaskCard = styled.View`
   background-color: ${(props) => props.theme.COLORS.GRAY_400};
   border-radius: 8px;
   padding: 12px 25px 12px 12px;
+  height: 64px;
+  margin-bottom: 8px;
 
   flex-direction: row;
   align-items: center;

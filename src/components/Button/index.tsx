@@ -1,6 +1,7 @@
+import { TouchableOpacityProps } from "react-native";
 import * as S from "./styles";
 
-export interface ButtonProps {
+export interface ButtonProps extends TouchableOpacityProps {
   width?: string;
   variant?: "primary" | "secondary";
   children?: React.ReactNode;

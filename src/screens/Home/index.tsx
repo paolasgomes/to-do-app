@@ -1,34 +1,72 @@
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
-import { Image } from "react-native";
+import { FlatList, Image } from "react-native";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import Entypo from "react-native-vector-icons/Entypo";
 import EvillIcon from "react-native-vector-icons/EvilIcons";
 import IonIcons from "react-native-vector-icons/Ionicons";
-import logomarca from "../../assets/logo.png";
 import { Button } from "../../components/Button";
+import { uuid } from "../../utils/uuid";
 import * as S from "./styles";
 
-export default function HomePage() {
-  const [isChecked, setIsChecked] = useState(false);
+interface TasksProps {
+  id: string;
+  description: string;
+  isChecked?: boolean;
+}
 
-  function handleCheckBox() {
-    setIsChecked((state) => !state);
+export default function HomePage() {
+  const [textInput, setIsTextInput] = useState("");
+
+  const [taskList, setTaskList] = useState<TasksProps[]>([]);
+
+  function handleCheckBox(id: any) {
+    setTaskList((state) => {
+      return state.map((task) => {
+        if (task.id === id) {
+          return {
+            ...task,
+            isChecked: !task.isChecked,
+          };
+        }
+        return task;
+      });
+    });
+  }
+
+  function handleTextChange(text: string) {
+    setIsTextInput(text);
+  }
+
+  function handleInsertTask(textInput: string) {
+    const newTask = {
+      id: uuid(),
+      description: `${textInput}`,
+    };
+
+    setTaskList((state) => {
+      return [...state, newTask];
+    });
+
+    setIsTextInput("");
   }
 
   return (
     <S.Container>
       <StatusBar style="light" translucent />
       <S.Header>
-        <Image source={logomarca} />
+        <Image source={require("../../assets/logo.png")} />
       </S.Header>
       <S.Tasks>
         <S.InsertTask>
           <S.InsertInput
             placeholder="Adicione uma nova tarefa"
             placeholderTextColor={"#808080"}
+            maxLength={70}
+            onChangeText={handleTextChange}
+            value={textInput}
           />
-          <Button>
+          <Button onPress={() => handleInsertTask(textInput)}>
             <IonIcons name="add-circle-outline" size={20} color="#FFFF" />
           </Button>
         </S.InsertTask>
@@ -51,29 +89,35 @@ export default function HomePage() {
           </S.StatusAtual>
 
           <S.TasksList>
-            <S.TaskCard>
-              <S.Checkbox onPress={handleCheckBox}>
-                {isChecked ? (
-                  <AntDesign name="checkcircle" size={20} color="#5E60CE" />
-                ) : (
-                  <Entypo name="circle" size={20} color="#4EA8DE" />
-                )}
-              </S.Checkbox>
+            <FlatList
+              data={taskList}
+              keyExtractor={(item) => item.id}
+              renderItem={({ item }) => (
+                <S.TaskCard>
+                  <S.Checkbox
+                    onPress={() => {
+                      handleCheckBox(item.id);
+                    }}
+                  >
+                    {item.isChecked ? (
+                      <AntDesign name="checkcircle" size={20} color="#5E60CE" />
+                    ) : (
+                      <Entypo name="circle" size={20} color="#4EA8DE" />
+                    )}
+                  </S.Checkbox>
 
-              {isChecked ? (
-                <S.TaskDescriptionChecked>
-                  Integer urna interdum massa libero auctor neque turpis turpis semper.
-                </S.TaskDescriptionChecked>
-              ) : (
-                <S.TaskDescriptionUnChecked>
-                  Integer urna interdum massa libero auctor neque turpis turpis semper.
-                </S.TaskDescriptionUnChecked>
+                  {item.isChecked ? (
+                    <S.TaskDescriptionChecked>{item.description}</S.TaskDescriptionChecked>
+                  ) : (
+                    <S.TaskDescriptionUnChecked>{item.description}</S.TaskDescriptionUnChecked>
+                  )}
+
+                  <S.DeleteTask>
+                    <EvillIcon name="trash" size={24} color="#808080" />
+                  </S.DeleteTask>
+                </S.TaskCard>
               )}
-
-              <S.DeleteTask>
-                <EvillIcon name="trash" size={24} color="#808080" />
-              </S.DeleteTask>
-            </S.TaskCard>
+            />
           </S.TasksList>
         </S.TasksPanel>
       </S.Tasks>
