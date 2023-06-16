@@ -103,8 +103,13 @@ export const TaskCard = styled.View`
   align-items: center;
 `;
 
-export const Checkbox = styled.TouchableOpacity`
-  margin-right: 11px;
+export const LabelCheckbox = styled.TouchableOpacity`
+  height: 100%;
+
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 8px;
 `;
 
 export const TaskDescriptionUnChecked = styled.Text`
@@ -122,4 +127,42 @@ export const TaskDescriptionChecked = styled.Text`
   width: 285px;
 `;
 
-export const DeleteTask = styled.TouchableOpacity``;
+export const DeleteTask = styled.TouchableOpacity`
+  height: 100%;
+
+  align-items: center;
+  justify-content: center;
+`;
+
+export const DeleteAlert = styled.View`
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+`;
+
+export const AlertText = styled.Text`
+  width: 300px;
+  text-align: center;
+  font-size: ${(props) => props.theme.FONT_SIZE[12]};
+  color: ${(props) => props.theme.COLORS.GRAY_300};
+  font-family: ${(props) => props.theme.FONT_FAMILY.REGULAR};
+`;
+
+export const ActionsButtons = styled.View`
+  flex-direction: row;
+  justify-content: center;
+  gap: 16px;
+`;
+
+export const TextCancelButton = styled.Text`
+  font-size: ${(props) => props.theme.FONT_SIZE[12]};
+  font-family: ${(props) => props.theme.FONT_FAMILY.REGULAR};
+  color: ${(props) => props.theme.COLORS.RED_400};
+`;
+
+export const TextConfirmButton = styled.Text`
+  font-size: ${(props) => props.theme.FONT_SIZE[12]};
+  font-family: ${(props) => props.theme.FONT_FAMILY.REGULAR};
+  color: ${(props) => props.theme.COLORS.GRAY_100};
+`;
